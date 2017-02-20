@@ -1,0 +1,19 @@
+body{
+			/*cursor: none;*/
+			background-color: #212020;
+		}
+		#circle, #aCircle{
+			height: 30px;
+			width: 30px;
+			border-radius: 50%;
+			/*background-color: black;*/
+			position: absolute;
+		}
+
+		#aCircle{
+			/*background-color: whitesmoke;*/
+			position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translateX(-50%) translateY(-50%);
+		}
