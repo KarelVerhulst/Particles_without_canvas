@@ -5,43 +5,6 @@ var aCircle = $('#aCircle'),
 	apool = [],
 	aTWO_PI = 2 * Math.PI;
 
-	function aParticle(x,y){
-		this.ainit(x,y);
-	}
-
-	aParticle.prototype = {
-		ainit: function( x, y){
-			this.alive = true;
-
-			this.radius = Math.floor(Math.random() * 10) + 1;
-			this.wander = 0.15;
-			this.theta = Math.random() * aTWO_PI
-			this.drag = 0.92; 
-			this.color = '#fff'
-			
-			this.x = x || 0.0;
-			this.y = y || 0.0;
-
-			this.vx = 0.0;
-			this.vy = 0.0;
-		},
-
-		amove: function(){
-			this.x += this.vx;
-			this.y += this.vy;
-
-			this.vx *= this.drag;
-			this.vy *= this.drag;
-
-			this.theta += Math.floor(Math.random() * 11) - 5;
-			this.vx += Math.sin(this.theta) * 0.1;
-			this.vy += Math.cos(this.theta) * 0.1;
-
-			this.radius *= 0.96;
-			this.alive = this.radius > 0.5
-
-		}
-	}
 
 	function asetup(){
 		var i, x, y;
@@ -49,7 +12,6 @@ var aCircle = $('#aCircle'),
 		for (var i = 0; i < 20; i++) {
 			x = (aCircle.width() * 0.5) + Math.floor(Math.random() * 201) - 100;;
 			y = (aCircle.height() * 0.5) + Math.floor(Math.random() * 201) - 100;;
-			//spawn()
 
 		}
 	}
@@ -60,31 +22,22 @@ var aCircle = $('#aCircle'),
 			apool.push(aparticles.shift());
 		}
 
-		aparticle = apool.length ? apool.pop() : new aParticle();
+		aparticle = apool.length ? apool.pop() : new GrayParticle();
 
-		aparticle.ainit(x,y)
+		aparticle.init(x,y)
 
-            aparticle.color = aCOLOURS[Math.floor((Math.random() * 6) + 1)];
-            
-            atheta = Math.floor((Math.random() * Math.PI) + 1);
-            aforce = Math.floor((Math.random() * 8) + 2);
+        aparticle.color = aCOLOURS[Math.floor((Math.random() * 6) + 1)];
+        
+        atheta = Math.floor((Math.random() * Math.PI) + 1);
+        aforce = Math.floor((Math.random() * 8) + 2);
 
-            //particle.vx = Math.floor(Math.sin( theta ) * force);
-            //particle.vy = Math.floor(Math.cos( theta ) * force);
+        var width = $(document).width()
+        var height = $(document).height()
 
-            // particle.vx = Math.floor((Math.random() * 501) - 250);
-            // particle.vy = Math.floor((Math.random() * 501) - 250);
+        aparticle.vx = Math.floor((Math.random() * (width + 1 )) - (width/2));
+        aparticle.vy = Math.floor((Math.random() * (height +1 )) - (height/2));
 
-            var width = $(document).width()
-            var height = $(document).height()
-
-            aparticle.vx = Math.floor((Math.random() * (width + 1 )) - (width/2));
-            aparticle.vy = Math.floor((Math.random() * (height +1 )) - (height/2));
-
-            // particle.vx = Math.floor((Math.random() * 801) - 400);
-            // particle.vy = Math.floor((Math.random() * 801) - 400);
-
-            aparticles.push( aparticle );
+        aparticles.push( aparticle );
 	}
 
 	function adraw(){
